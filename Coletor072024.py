@@ -141,7 +141,8 @@ def coletar_historico():
         avaliacoes_base = obter_avaliacoes_selenium(url_base, driver)
         avaliacoes_totais.extend(avaliacoes_base)
 
-        for pagina in range(2, 10):
+        paginas = int(paginas_input.get())
+        for pagina in range(2, paginas + 1):
             url_atual = url_template.format(pagina)
             avaliacoes_pagina = obter_avaliacoes_selenium(url_atual, driver)
             if not avaliacoes_pagina:
@@ -185,6 +186,10 @@ if __name__ == '__main__':
     url_input.insert(0, url_base)
     url_input.pack()
 
+    paginas_input = tk.Entry(root, width=10)
+    paginas_input.insert(0, "10")
+    paginas_input.pack()
+
     botao_coletar = tk.Button(root, text="Coletar Avaliações", command=iniciar_coleta)
     botao_coletar.pack()
 
@@ -195,4 +200,3 @@ if __name__ == '__main__':
     botao_mudar_url.pack()
 
     root.mainloop()
-
